@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BLOCK OPS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="src/ui/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="hud" class="hidden">
+  <div id="crosshair"><i></i><i></i><i></i><i></i></div>
+  <div id="hitmarker"></div>
+  <div id="damage-flash"></div>
+  <div id="scope-overlay" class="hidden"></div>
+  <div id="top-left">
+    <div id="hp-bar"><div id="hp-fill"></div><span id="hp-text">100</span></div>
+    <div id="mode-text">COMBAT</div>
+  </div>
+  <div id="top-right">
+    <div id="kills">KILLS <b id="kill-count">0</b></div>
+    <div id="time-text">12:00</div>
+  </div>
+  <div id="killfeed"></div>
+  <div id="bottom-right">
+    <div id="weapon-name">AK-47</div>
+    <div id="ammo"><b id="ammo-mag">30</b><span>/</span><span id="ammo-res">120</span></div>
+  </div>
+  <div id="hotbar"></div>
+  <div id="toast"></div>
+</div>
+
+<div id="mobile-controls" class="hidden">
+  <div id="joystick"><div id="stick"></div></div>
+  <button class="mbtn" id="btn-shoot">SHOOT</button>
+  <button class="mbtn" id="btn-jump">JUMP</button>
+  <button class="mbtn" id="btn-reload">RELOAD</button>
+  <button class="mbtn" id="btn-scope">SCOPE</button>
+  <button class="mbtn" id="btn-build">BUILD</button>
+  <button class="mbtn" id="btn-place">PLACE</button>
+  <button class="mbtn" id="btn-crouch">DUCK</button>
+  <button class="mbtn" id="btn-weapon">SWAP</button>
+  <button class="mbtn" id="btn-block">BLOCK</button>
+  <button class="mbtn" id="btn-sprint">RUN</button>
+</div>
+
+<div id="menu">
+  <div class="panel">
+    <h1>BLOCK<span>OPS</span></h1>
+    <p class="tag">Build like Minecraft. Fight like Warzone.</p>
+
+    <div class="idrow">
+      <label>YOUR BO-ID</label>
+      <div class="idbox"><code id="my-id">...</code><button id="copy-id">COPY</button></div>
+    </div>
+
+    <div class="idrow">
+      <label>JOIN A FRIEND</label>
+      <div class="idbox">
+        <input id="friend-id" placeholder="BO-XXXX-1234" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        <button id="join-btn">JOIN</button>
+      </div>
+      <small id="net-status">Offline: bots only</small>
+    </div>
+
+    <label class="tog"><input type="checkbox" id="opt-bots" checked> Enemy bots</label>
+    <button id="play-btn" class="big">DEPLOY</button>
+
+    <details>
+      <summary>Controls</summary>
+      <p><b>PC:</b> WASD move, Shift sprint, Space jump, C crouch, mouse aim, LMB shoot, RMB scope, R reload, 1-4 weapon, F toggle BUILD/COMBAT, Q/E or wheel pick block, G place block, X break block.</p>
+      <p><b>Phone:</b> left stick move, drag right side to look, buttons for the rest. BUILD switches Shoot to break and Place to place.</p>
+    </details>
+  </div>
+</div>
+
+<div id="rotate-hint" class="hidden">Rotate your phone to landscape</div>
+
+<script type="module" src="src/main.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js').catch(() => {}));
+  }
+</script>
+</body>
+</html>
